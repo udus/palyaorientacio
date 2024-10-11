@@ -5,82 +5,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Athéné</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            text-align: center; /* Center text for better appearance */
-        }
-        .container {
-            display: flex;
-            height: calc(100vh - 100px); /* Adjust height to fit header and footer */
-            align-items: center;
-            justify-content: center;
-            margin: 20px 0; /* Add some margin */
-        }
-        .option {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px; /* Increased padding for larger clickable area */
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s; /* Added transition for transform */
-            font-size: 28px; /* Larger font size */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-        }
-        .option:hover {
-            background-color: #e0e0e0;
-            transform: scale(1.05); /* Slightly enlarge on hover */
-        }
-        .optionA {
-            background-color: #cce5ff; /* Light blue */
-        }
-        .optionB {
-            background-color: #d4edda; /* Light green */
-        }
-        .question {
-            margin: 20px 0;
-            font-size: 32px; /* Larger font size for questions */
-            color: #333; /* Darker text color */
-        }
-        .emoji {
-            font-size: 48px; /* Larger emoji size */
-            margin-right: 10px; /* Spacing between emoji and text */
-        }
-        .result {
-            font-size: 36px; /* Larger font size for result */
-            margin: 20px 0; /* Margin for spacing */
-            color: #333; /* Darker text color */
-            display: none; /* Initially hidden */
-            font-family: 'Courier New', Courier, monospace; /* Fancy font */
-            font-weight: bold; /* Bold font */
-            text-align: center; /* Center align text */
-        }
-        .new-fruit-button {
-            font-size: 24px; /* Button font size */
-            padding: 12px 24px; /* Button padding */
-            margin-top: 20px; /* Margin above button */
-            cursor: pointer; /* Pointer cursor for button */
-            display: none; /* Initially hidden */
-            border: none; /* Remove default button border */
-            border-radius: 5px; /* Rounded corners */
-            background-color: #007bff; /* Bootstrap primary color */
-            color: white; /* Button text color */
-            transition: background-color 0.3s, transform 0.3s; /* Transition for hover effect */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for button */
-        }
-        .new-fruit-button:hover {
-            background-color: #0056b3; /* Darker shade on hover */
-            transform: scale(1.05); /* Slightly enlarge on hover */
-        }
-        .button-container {
-            display: flex;
-            justify-content: center; /* Center the button */
-            margin-top: 20px; /* Margin for spacing */
-        }
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f4;
+			margin: 0;
+			padding: 0;
+			text-align: center; /* Center text for better appearance */
+		}
+
+		.container {
+			display: flex;
+			flex-wrap: wrap; /* Allow items to wrap to the next line */
+			justify-content: center; /* Center items horizontally */
+			height: calc(100vh - 100px); /* Adjust height to fit header and footer */
+			margin: 20px 0; /* Add some margin */
+		}
+
+		.option {
+			flex: 1 1 300px; /* Allow options to grow and shrink, with a minimum width of 300px */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 20px; /* Reduced padding for smaller screens */
+			cursor: pointer;
+			transition: background-color 0.3s, transform 0.3s; /* Added transition for transform */
+			font-size: 24px; /* Adjusted font size for smaller screens */
+			border-radius: 10px; /* Rounded corners */
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+			margin: 10px; /* Add margin for spacing between buttons */
+			min-height: 100px; /* Set a minimum height to ensure both buttons are the same size */
+		}
+
+		.option:hover {
+			background-color: #e0e0e0;
+			transform: scale(1.05); /* Slightly enlarge on hover */
+		}
+
+		.optionA {
+			background-color: #cce5ff; /* Light blue */
+		}
+
+		.optionB {
+			background-color: #d4edda; /* Light green */
+		}
+
+		.question {
+			margin: 20px 0;
+			font-size: 28px; /* Adjusted font size for smaller screens */
+			color: #333; /* Darker text color */
+		}
+
+		.emoji {
+			font-size: 36px; /* Adjusted emoji size for smaller screens */
+			margin-right: 10px; /* Spacing between emoji and text */
+		}
+
+		.result {
+			font-size: 30px; /* Adjusted font size for result */
+			margin: 20px 0; /* Margin for spacing */
+			color: #333; /* Darker text color */
+			display: none; /* Initially hidden */
+			font-family: 'Courier New', Courier, monospace; /* Fancy font */
+			font-weight: bold; /* Bold font */
+			text-align: center; /* Center align text */
+		}
+
+		.new-fruit-button {
+			font-size: 20px; /* Adjusted button font size */
+			padding: 10px 20px; /* Adjusted button padding */
+			margin-top: 20px; /* Margin above button */
+			cursor: pointer; /* Pointer cursor for button */
+			display: none; /* Initially hidden */
+			border: none; /* Remove default button border */
+			border-radius: 5px; /* Rounded corners */
+			background-color: #007bff; /* Bootstrap primary color */
+			color: white; /* Button text color */
+			transition: background-color 0.3s, transform 0.3s; /* Transition for hover effect */
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for button */
+		}
+
+		.new-fruit-button:hover {
+			background-color: #0056b3; /* Darker shade on hover */
+			transform: scale(1.05); /* Slightly enlarge on hover */
+		}
+
+		.button-container {
+			display: flex;
+			justify-content: center; /* Center the button */
+			margin-top: 20px; /* Margin for spacing */
+		}
+
+		/* Media Queries for Responsiveness */
+		@media (max-width: 600px) {
+			.container {
+				flex-direction: column; /* Stack the options vertically */
+				margin: 10px; /* Reduce margin */
+			}
+			.option {
+				width: 90%; /* Set a maximum width for options */
+				margin: 5px 0; /* Add margin for spacing */
+				padding: 20px; /* Adjust padding for smaller screens */
+			}
+			.question {
+				font-size: 24px; /* Smaller font size for questions */
+			}
+			.emoji {
+				font-size: 32px; /* Smaller emoji size */
+			}
+			.result {
+				font-size: 28px; /* Smaller font size for result */
+			}
+			.new-fruit-button {
+				font-size: 18px; /* Smaller button font size */
+				padding: 10px; /* Adjusted button padding */
+			}
+		}
+
     </style>
 </head>
 <body>
@@ -108,7 +148,7 @@
         {
             question: "Mi igaz inkább rám?",
             options: {
-                A: "🎉 élvezem az összejöveteleket, szeretek új emberekkel ismerkedni",
+                A: "🎉 élvezem a összejöveteleket, szeretek új emberekkel ismerkedni",
                 B: "🌳 szeretem egyedül tölteni az időmet vagy a közeli barátaimmal"
             }
         },
