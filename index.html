@@ -69,7 +69,7 @@
 			text-align: center; /* Center align text */
 		}
 
-		.new-fruit-button {
+		.new-job-button {
 			font-size: 20px; /* Adjusted button font size */
 			padding: 10px 20px; /* Adjusted button padding */
 			margin-top: 20px; /* Margin above button */
@@ -83,7 +83,7 @@
 			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for button */
 		}
 
-		.new-fruit-button:hover {
+		.new-job-button:hover {
 			background-color: #0056b3; /* Darker shade on hover */
 			transform: scale(1.05); /* Slightly enlarge on hover */
 		}
@@ -116,7 +116,7 @@
 			.result {
 				font-size: 28px; /* Smaller font size for result */
 			}
-			.new-fruit-button {
+			.new-job-button {
 				font-size: 18px; /* Smaller button font size */
 				padding: 10px; /* Adjusted button padding */
 			}
@@ -137,10 +137,10 @@
 <h1>Pályaorientációs személyiségteszt</h1>
 
 <div class="question" id="question"></div>
-<div class="result" id="result"></div> <!-- Result div to display fruit -->
+<div class="result" id="result"></div> <!-- Result div to display job -->
 
 <div class="button-container">
-    <button class="new-fruit-button" id="newFruitButton" onclick="pickNewFruit()">Más, a személyiségemhez illő tevékenység ajánlása</button> <!-- Button for new fruit -->
+    <button class="new-job-button" id="newJobButton" onclick="pickNewJob()">Más, a személyiségemhez illő tevékenység ajánlása</button> <!-- Button for new job -->
 </div>
 
 <div class="container">
@@ -191,7 +191,76 @@
         }		
     ];
 
-    const fruits = [
+    let currentQuestion = 0;
+    const selections = [];
+    let currentJob = ''; // Variable to store the current job
+
+    function displayQuestion() {
+        const questionElement = document.getElementById('question');
+        const optionAElement = document.getElementById('optionA');
+        const optionBElement = document.getElementById('optionB');
+
+        // Display the current question and options
+        questionElement.textContent = questions[currentQuestion].question;
+        optionAElement.textContent = questions[currentQuestion].options.A;
+        optionBElement.textContent = questions[currentQuestion].options.B;
+
+        // Clear previous click events
+        optionAElement.onclick = null;
+        optionBElement.onclick = null;
+
+        // Add click events to options
+        optionAElement.onclick = () => recordSelection('A');
+        optionBElement.onclick = () => recordSelection('B');
+    }
+
+    function recordSelection(selection) {
+        selections.push(selection);  // Store the selection
+        currentQuestion++;  // Move to the next question
+        if (currentQuestion < questions.length) {
+            displayQuestion();  // Display the next question
+        } else {
+            showResults();  // Show results when finished
+        }
+    }
+
+    function showResults() {
+        const questionElement = document.getElementById('question');
+        questionElement.textContent = "A személyisévonásaid alapján számodra javasolt tevékenységi kör:";
+
+        const optionAElement = document.getElementById('optionA');
+        const optionBElement = document.getElementById('optionB');
+
+        // Hide the option buttons
+        optionAElement.style.display = 'none';
+        optionBElement.style.display = 'none';
+
+        // Pick a random job from the list
+        currentJob = jobs[Math.floor(Math.random() * jobs.length)];
+        
+        // Display the result
+        const resultElement = document.getElementById('result');
+        resultElement.textContent = `${currentJob}`;
+        resultElement.style.display = 'block'; // Show the result
+
+        // Show the button to get a new job
+        const newJobButton = document.getElementById('newJobButton');
+        newJobButton.style.display = 'block'; // Show the new job button
+    }
+
+    function pickNewJob() {
+        // Pick a new random job from the list
+        currentJob = jobs[Math.floor(Math.random() * jobs.length)];
+        
+        // Update the displayed result
+        const resultElement = document.getElementById('result');
+        resultElement.textContent = `${currentJob}`;
+    }
+
+    // Initial display of the first question
+    displayQuestion();
+
+    const jobs = [
 		'Növénytermesztés, állattenyésztés, vadgazdálkodás és kapcsolódó szolgáltatások',
 		'Nem évelő növény termesztése',
 		'Gabonaféle (kivéve: rizs), hüvelyes növény, olajos mag termesztése',
@@ -2269,74 +2338,7 @@
 		'Háztartási és egyéb alkalmazottat foglalkoztató magánháztartás, magánszemély',
 		'Területen kívüli szervezet',
 		'Külföldi képviseletet ellátó személy'];
-    let currentQuestion = 0;
-    const selections = [];
-    let currentFruit = ''; // Variable to store the current fruit
-
-    function displayQuestion() {
-        const questionElement = document.getElementById('question');
-        const optionAElement = document.getElementById('optionA');
-        const optionBElement = document.getElementById('optionB');
-
-        // Display the current question and options
-        questionElement.textContent = questions[currentQuestion].question;
-        optionAElement.textContent = questions[currentQuestion].options.A;
-        optionBElement.textContent = questions[currentQuestion].options.B;
-
-        // Clear previous click events
-        optionAElement.onclick = null;
-        optionBElement.onclick = null;
-
-        // Add click events to options
-        optionAElement.onclick = () => recordSelection('A');
-        optionBElement.onclick = () => recordSelection('B');
-    }
-
-    function recordSelection(selection) {
-        selections.push(selection);  // Store the selection
-        currentQuestion++;  // Move to the next question
-        if (currentQuestion < questions.length) {
-            displayQuestion();  // Display the next question
-        } else {
-            showResults();  // Show results when finished
-        }
-    }
-
-    function showResults() {
-        const questionElement = document.getElementById('question');
-        questionElement.textContent = "A személyisévonásaid alapján számodra javasolt tevékenységi kör:";
-
-        const optionAElement = document.getElementById('optionA');
-        const optionBElement = document.getElementById('optionB');
-
-        // Hide the option buttons
-        optionAElement.style.display = 'none';
-        optionBElement.style.display = 'none';
-
-        // Pick a random fruit from the list
-        currentFruit = fruits[Math.floor(Math.random() * fruits.length)];
-        
-        // Display the result
-        const resultElement = document.getElementById('result');
-        resultElement.textContent = `${currentFruit}`;
-        resultElement.style.display = 'block'; // Show the result
-
-        // Show the button to get a new fruit
-        const newFruitButton = document.getElementById('newFruitButton');
-        newFruitButton.style.display = 'block'; // Show the new fruit button
-    }
-
-    function pickNewFruit() {
-        // Pick a new random fruit from the list
-        currentFruit = fruits[Math.floor(Math.random() * fruits.length)];
-        
-        // Update the displayed result
-        const resultElement = document.getElementById('result');
-        resultElement.textContent = `${currentFruit}`;
-    }
-
-    // Initial display of the first question
-    displayQuestion();
+		
 </script>
 
 </body>
