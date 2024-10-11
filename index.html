@@ -31,8 +31,8 @@
 			font-size: 24px; /* Adjusted font size */
 			border-radius: 10px; /* Rounded corners */
 			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-			min-width: 150px; /* Ensure a minimum width */
-			margin: 10px; /* Add margin for spacing between buttons */
+			min-width: 120px; /* Ensure a minimum width */
+			margin: 5px; /* Reduced margin for spacing between buttons */
 		}
 
 		.option:hover {
@@ -98,11 +98,14 @@
 		@media (max-width: 600px) {
 			.container {
 				flex-direction: row; /* Keep options side by side */
+				justify-content: space-between; /* Ensure even space between options */
+				padding: 0 10px; /* Add some padding to the sides */
 			}
 			.option {
-				width: calc(50% - 20px); /* Each option takes half the width, minus margin */
-				margin: 10px; /* Add margin for spacing */
+				flex: 1; /* Allow each option to grow equally */
+				margin: 5px; /* Reduced margin for spacing between buttons */
 				padding: 20px; /* Adjust padding for smaller screens */
+				box-sizing: border-box; /* Include padding in width calculation */
 			}
 			.question {
 				font-size: 24px; /* Smaller font size for questions */
@@ -118,6 +121,7 @@
 				padding: 10px; /* Adjusted button padding */
 			}
 		}
+
 
 
     </style>
